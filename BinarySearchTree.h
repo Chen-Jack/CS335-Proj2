@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_TREE_H
 
 #include "dsexceptions.h"
+#include <iostream>
 #include <algorithm>
 using namespace std;       
 
