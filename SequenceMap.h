@@ -9,6 +9,7 @@ class SequenceMap{
   public:
     //Rule of 5
     SequenceMap() = default; //Empty Constructor
+    SequenceMap(const string& a_rec_seq): recognition_sequence_{a_rec_seq}{};
     SequenceMap(const string &a_rec_seq, const string &an_enz_acro){  //Argument constructor
       recognition_sequence_ = a_rec_seq;
       enzyme_acronyms_.push_back(an_enz_acro);
@@ -38,6 +39,14 @@ class SequenceMap{
         return false;
       }
     } 
+    const bool operator == (SequenceMap& rhs) const{
+      if(recognition_sequence_ == rhs.recognition_sequence_){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
     
 
     //Overloaded stream operator.
@@ -55,11 +64,15 @@ class SequenceMap{
     acronym vector*/
     void Merge(const SequenceMap& other_sequence){
       if(recognition_sequence_ == other_sequence.recognition_sequence_){
-        //Insert all contents from other seq into the end of caller's vector.
-        enzyme_acronyms_.insert(enzyme_acronyms_.end(), 
-          other_sequence.enzyme_acronyms_.begin(), 
-          other_sequence.enzyme_acronyms_.end());
+      //   //Insert all contents from other seq into the end of caller's vector.
+      //   enzyme_acronyms_.insert(enzyme_acronyms_.end(), 
+      //     other_sequence.enzyme_acronyms_.begin(), 
+      //     other_sequence.enzyme_acronyms_.end());
+        for(int i=0; i< other_sequence.enzyme_acronyms_.size(); i++){
+          enzyme_acronyms_.push_back(other_sequence.enzyme_acronyms_[i]);
+        }
       } 
+
     }
     
 

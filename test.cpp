@@ -5,24 +5,18 @@ using namespace std;
 
 int main(){
 
-    string a = "red";
-    string b = "blue";
+    string seq = "TTA'TAA";
+    string acro = "AanI";
+    string seq2 = "TTA'sAA";
 
-    SequenceMap c{a,b};
-    // string line = "AarI/CACCTGCNNNN'NNNN/'NNNNNNNNGCAGGTG//";
+    SequenceMap map1{seq, acro};
+    SequenceMap map3{seq, "whatever"};
+    map3.Merge(map1);
+    SequenceMap map2{seq2};
 
-    // string&& acro = line.substr(0, line.find('/'));
-    // line.erase(0, line.find('/')+1);
-    // cout << "acro: " << acro << endl;
-    // cout << "Seq: ";
-    // while(line != "/"){
-    //     //cout << "Line is now "<<line << endl;
-    //   string&& sequence = line.substr(0,line.find('/'));
-    //   line.erase(0, line.find('/')+1);
-
-    //   cout << sequence << " ";
-    // }
-    // cout << endl;
+    BinarySearchTree<SequenceMap> a_tree;
+    a_tree.insert(map3);
+    cout << a_tree.find(map1);
     return 0;
 }
     
