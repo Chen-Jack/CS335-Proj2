@@ -94,6 +94,22 @@ class AvlTree
         return contains( x, root );
     }
 
+    bool contains( const string& x ) const
+    {
+        Comparable tmp{x};
+        return contains(tmp, root);
+    }
+
+    const Comparable& find( const Comparable& x)const
+    {
+        return find(x, root);
+    }
+    const Comparable& find( const string& x) const
+    {
+        Comparable tmp{x};
+        return find(tmp,root);
+    }
+
     /**
      * Test if the tree is logically empty.
      * Return true if empty, false otherwise.
@@ -299,6 +315,22 @@ class AvlTree
         else
             return true;    // Match
     }
+
+    const Comparable& find( const Comparable& x, AvlNode* t) const
+    {
+        if( t == nullptr ){
+            cout << "Could not find node. Returning original value." << endl;
+            return x;
+        }  
+        else if( x < t->element )
+            return find( x, t->left );
+        else if( t->element < x )
+            return find( x, t->right );
+        else
+            return t->element;    // Match        
+
+    }
+
 /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, AvlNode *t ) const
     {

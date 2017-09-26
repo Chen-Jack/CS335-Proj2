@@ -59,20 +59,36 @@ int main(int argc, char** argv) {
   cout << "Input filename is " << db_filename << endl;
   cout << "Type of tree is " << param_tree << endl;
 
-  //"Please enter three recognition sequences."
-  string seq1, seq2, seq3;
-  for(int i=0; i<3; i++){
-    cin >> seq1 >> seq2 >> seq3;
+  //"Please enter n recognition sequences."
+  const int TOTAL_INPUTS = 3;
+  string input_seq[TOTAL_INPUTS];
+  for(int i=0; i<TOTAL_INPUTS; i++){
+    cin >> input_seq[i];
   }
 
+  //Binary Search Tree
   if (param_tree == "BST") {
     BinarySearchTree<SequenceMap> a_tree;
     Project2::QueryTree(db_filename, a_tree);
-    cout << a_tree.contains(seq1) << endl;
+    for(int i=0; i < TOTAL_INPUTS; i++){
+      if(a_tree.contains(input_seq[i])){
+        a_tree.find(input_seq[i]).PrintEnzSequence();
+      }
+      else
+        cout << "Not Found" << endl;
+    }
   } 
+  //AVL Search Tree
   else if (param_tree == "AVL") {
     AvlTree<SequenceMap> a_tree;
     Project2::QueryTree(db_filename, a_tree);
+    for(int i=0; i < TOTAL_INPUTS; i++){
+      if(a_tree.contains(input_seq[i])){
+        a_tree.find(input_seq[i]).PrintEnzSequence();
+      }
+      else
+        cout << "Not Found" << endl;
+    }
   } 
   else {
     cout << "Unknown tree type " << param_tree << " (User should provide BST, or AVL)" << endl;

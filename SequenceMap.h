@@ -39,15 +39,6 @@ class SequenceMap{
         return false;
       }
     } 
-    const bool operator == (SequenceMap& rhs) const{
-      if(recognition_sequence_ == rhs.recognition_sequence_){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    
 
     //Overloaded stream operator.
     friend void operator<<( ostream &output, const SequenceMap& someMap) { 
@@ -73,6 +64,16 @@ class SequenceMap{
         }
       } 
 
+    }
+
+    void PrintRecognitionSequence()const{
+      cout << recognition_sequence_ << endl;
+    }
+    void PrintEnzSequence() const{
+      for(string acro: enzyme_acronyms_){
+        cout << acro << " ";
+      }
+      cout << endl;
     }
     
 
