@@ -10,7 +10,7 @@
 #include <fstream>
 using namespace std;
 
-namespace Project2{
+namespace Part2A{
 
 // @db_filename: an input filename.
 // @a_tree: an input tree of the type TreeType. It is assumed to be
@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
   //Binary Search Tree
   if (param_tree == "BST") {
     BinarySearchTree<SequenceMap> a_tree;
-    Project2::QueryTree(db_filename, a_tree);
+    Part2A::QueryTree(db_filename, a_tree);
     for(int i=0; i < TOTAL_INPUTS; i++){
       if(a_tree.contains(input_seq[i])){
         a_tree.find(input_seq[i]).PrintEnzSequence();
@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
   //AVL Search Tree
   else if (param_tree == "AVL") {
     AvlTree<SequenceMap> a_tree;
-    Project2::QueryTree(db_filename, a_tree);
+    Part2A::QueryTree(db_filename, a_tree);
     for(int i=0; i < TOTAL_INPUTS; i++){
       if(a_tree.contains(input_seq[i])){
         a_tree.find(input_seq[i]).PrintEnzSequence();

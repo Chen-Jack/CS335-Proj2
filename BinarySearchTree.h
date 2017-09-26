@@ -16,10 +16,11 @@ using namespace std;
 // bool contains( x )     --> Return true if x is present
 // Comparable findMin( )  --> Return smallest item
 // Comparable findMax( )  --> Return largest item
+// Comparable find( x )   --> Find and return a node
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
-// Comparable& find( x )  --> Find and return a node
+// int totalNode( )       --> Prints the total nodes
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -129,6 +130,9 @@ class BinarySearchTree
             printTree(root, out);
     }
 
+    int totalNode(){
+        return totalNode(root);
+    }
     /**
      * Make the tree logically empty.
      */
@@ -223,6 +227,17 @@ class BinarySearchTree
             insert(std::move(x), t->right);
         else
             t->element.Merge(x);
+    }
+
+
+    int totalNode(BinaryNode* t){
+        static int sum = 0;
+        if(t != nullptr){
+            totalNode(t->left);
+            sum++;
+            totalNode(t->right);
+        }
+        return sum;
     }
 
     /**
