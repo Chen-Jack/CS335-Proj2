@@ -20,8 +20,9 @@ using namespace std;
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
-// int totalNode( )       --> Prints the total nodes
-// double averageDepth( )   --> Prints the tree's average depth
+// int totalNode( )       --> Returns the total nodes
+// double averageDepth( )   --> Returns the tree's average depth
+// int totalRecursiveCalls ( x ) --> Returns the amount of recursive calls to find x.
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -162,25 +163,33 @@ class BinarySearchTree
     /**
      * Remove x from the tree. Nothing is done if x is not found.
      */
+    void remove(string x){
+        Comparable tmp{x};
+        remove(tmp, root);
+    }
+
     void remove(const Comparable &x)
     {
         remove(x, root);
     }
 
     /**
-    * Find x in the tree and returns the node if found. (Jack's addition)
+    * Find x in the tree and returns the node if found.
     */
     const Comparable& find(const string& x){
         Comparable temp{x};
         return find(temp, root);
     }
-
     const Comparable& find(const Comparable& x){
         return find(x, root);
     }
 
     double averageDepth(){
-        return sumNodeDepth(root, 0) / totalNode(root);
+        return sumNodeDepth(root, 0) /(double)totalNode(root);
+    }
+    int totalRecursiveCalls(const string& n){
+        Comparable tmp{n};
+        return totalRecursiveCalls(root, tmp);
     }
 
   private:
@@ -344,6 +353,24 @@ class BinarySearchTree
                         sumNodeDepth(t->right, depth+1);
         }
     }
+
+    //Returns the amount of recursive calls to find n
+    int totalRecursiveCalls(BinaryNode* t, const Comparable& n){
+        if(t == nullptr){
+            return 0;
+        }
+        else{
+            if(t->element < n){
+                return 1 + totalRecursiveCalls(t->right, n);
+            }
+            else if(n < t->element){
+                return 1 + totalRecursiveCalls(t->left, n);
+            }
+            else{   //you found your item
+                return 0;
+            }
+        }
+    }    
        
     
     /****** NONRECURSIVE VERSION*************************

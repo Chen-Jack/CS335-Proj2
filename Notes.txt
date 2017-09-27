@@ -1,0 +1,2 @@
+my average depth seems alittle off, im pretty sure that the starting depth should be set to 0 for the root,
+but this gives me an average of ~10 (but everyone got 11);

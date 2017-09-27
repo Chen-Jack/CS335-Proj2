@@ -55,15 +55,11 @@ class SequenceMap{
     acronym vector*/
     void Merge(const SequenceMap& other_sequence){
       if(recognition_sequence_ == other_sequence.recognition_sequence_){
-      //   //Insert all contents from other seq into the end of caller's vector.
-      //   enzyme_acronyms_.insert(enzyme_acronyms_.end(), 
-      //     other_sequence.enzyme_acronyms_.begin(), 
-      //     other_sequence.enzyme_acronyms_.end());
+      //Insert all contents from other seq into the end of caller's vector.
         for(int i=0; i< other_sequence.enzyme_acronyms_.size(); i++){
           enzyme_acronyms_.push_back(other_sequence.enzyme_acronyms_[i]);
         }
       } 
-
     }
 
     void PrintRecognitionSequence()const{

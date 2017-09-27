@@ -20,7 +20,9 @@ using namespace std;
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
-// int totalNode( )       --> Print total nodes in the tree
+// int totalNode( )       --> Returns the total nodes
+// double averageDepth( )   --> Returns the tree's average depth 
+// int totalRecursiveCalls ( x ) --> Returns the amount of recursive calls to find x.
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -156,8 +158,8 @@ class AvlTree
         insert( std::move( x ), root );
     }
 
-    int totalNode() const{
-        totalNode(root);
+    int totalNode(){
+        return totalNode(root);
     }
      
     /**
@@ -168,6 +170,13 @@ class AvlTree
         remove( x, root );
     }
 
+    double averageDepth(){
+        return sumNodeDepth(root, 0) / totalNode(root);
+    }
+    int totalRecursiveCalls(const string& n){
+        Comparable tmp{n};
+        return totalRecursiveCalls(root, tmp);
+    }
   private:
     struct AvlNode
     {
@@ -336,16 +345,44 @@ class AvlTree
             return t->element;    // Match        
 
     }
-    int totalNode(AvlNode* t)const
-    {
-        static int sum = 0;
-        if(t != nullptr){
-            totalNode(t->left);
-            sum++;
-            totalNode(t->right);
+    int totalNode(AvlNode* t){
+        if( t == nullptr){
+            return 0;
         }
-        return sum;
+        else{
+            return 1 + totalNode(t->left) + totalNode(t->right);
+        }
     }
+
+    //Finds the sum of all depths of nodes of the tree
+    double sumNodeDepth(AvlNode* t, int depth){
+        if(t == nullptr){
+            return 0;
+        } 
+        else{
+            return depth + sumNodeDepth(t->left, depth+1) +
+                        sumNodeDepth(t->right, depth+1);
+        }
+    }
+
+    //Returns the amount of recursive calls to find n
+    int totalRecursiveCalls(AvlNode* t, const Comparable& n){
+        if(t == nullptr){
+            return 0;
+        }
+        else{
+            if(t->element < n){
+                return 1 + totalRecursiveCalls(t->right, n);
+            }
+            else if(n < t->element){
+                return 1 + totalRecursiveCalls(t->left, n);
+            }
+            else{
+                return 0;
+            }
+        }
+    }    
+       
 
 /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, AvlNode *t ) const
