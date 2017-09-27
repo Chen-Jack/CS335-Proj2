@@ -5,14 +5,21 @@ using namespace std;
 
 int main(){
 
-    string seq = "TTA'TAA";
-    string acro = "AanI";
-    string seq2 = "TTA'sAA";
+    int AverageHeight(somenode* t){
+        if(t != nullptr){
+            if(t->left == nullptr && t->right == nullptr){
+                return 1;
+            }
+            else{
+                return (AverageHeight(t->left) + AverageHeight(t->right))/2
+            }
+        }
+        else{
+            return 0;
+        }
+    }
 
-    SequenceMap map1{seq, acro};
-    map1.Merge(*(new SequenceMap{seq, acro}));
-    //map1.PrintRecognitionSequence();
-    map1.PrintEnzSequence();
+    
     return 0;
 }
     

@@ -20,6 +20,7 @@ using namespace std;
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
+// int totalNode( )       --> Print total nodes in the tree
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -153,6 +154,10 @@ class AvlTree
     void insert( Comparable && x )
     {
         insert( std::move( x ), root );
+    }
+
+    int totalNode() const{
+        totalNode(root);
     }
      
     /**
@@ -330,6 +335,16 @@ class AvlTree
         else
             return t->element;    // Match        
 
+    }
+    int totalNode(AvlNode* t)const
+    {
+        static int sum = 0;
+        if(t != nullptr){
+            totalNode(t->left);
+            sum++;
+            totalNode(t->right);
+        }
+        return sum;
     }
 
 /****** NONRECURSIVE VERSION*************************

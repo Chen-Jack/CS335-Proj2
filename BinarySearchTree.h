@@ -16,11 +16,12 @@ using namespace std;
 // bool contains( x )     --> Return true if x is present
 // Comparable findMin( )  --> Return smallest item
 // Comparable findMax( )  --> Return largest item
-// Comparable find( x )   --> Find and return a node
+// Comparable find( x )   --> Find and return a node 
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
 // int totalNode( )       --> Prints the total nodes
+// double averageDepth( )   --> Prints the tree's average depth
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -119,6 +120,7 @@ class BinarySearchTree
         return root == nullptr;
     }
 
+
     /**
      * Print the tree contents in sorted order.
      */
@@ -177,6 +179,10 @@ class BinarySearchTree
         return find(x, root);
     }
 
+    double averageDepth(){
+        return sumNodeDepth(root, 0) / totalNode(root);
+    }
+
   private:
     struct BinaryNode
     {
@@ -231,13 +237,12 @@ class BinarySearchTree
 
 
     int totalNode(BinaryNode* t){
-        static int sum = 0;
-        if(t != nullptr){
-            totalNode(t->left);
-            sum++;
-            totalNode(t->right);
+        if( t == nullptr){
+            return 0;
         }
-        return sum;
+        else{
+            return 1 + totalNode(t->left) + totalNode(t->right);
+        }
     }
 
     /**
@@ -328,6 +333,19 @@ class BinarySearchTree
             return t->element; // Match
     }
 
+
+    //Finds the sum of all depths of nodes of the tree
+    double sumNodeDepth(BinaryNode* t, int depth){
+        if(t == nullptr){
+            return 0;
+        } 
+        else{
+            return depth + sumNodeDepth(t->left, depth+1) +
+                        sumNodeDepth(t->right, depth+1);
+        }
+    }
+       
+    
     /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, BinaryNode *t ) const
     {

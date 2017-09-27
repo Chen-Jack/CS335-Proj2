@@ -48,6 +48,7 @@ void TestTree(const string &db_filename, const string &seq_filename, TreeType &a
     database.close();
 
     cout << "2:" << a_tree.totalNode() << endl;
+    cout << "3a:" << a_tree.averageDepth() << endl;
 
 }
 
