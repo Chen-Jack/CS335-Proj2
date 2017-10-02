@@ -21,8 +21,9 @@ namespace Part2B
 template <typename TreeType>
 void TestTree(const string &db_filename, const string &seq_filename, TreeType &a_tree) {
   // Code for running Part2(b)  
-  ifstream database{db_filename};
-  //Part 1---------------------------
+
+  //Part 1---------------------------------------------------------------------
+    ifstream database{db_filename};
     /*A way to skip the first 10 lines of the database, that way the query
     starts at the first entry and not the database's title header"*/
     for(int i=0; i<10; i++){
@@ -46,56 +47,54 @@ void TestTree(const string &db_filename, const string &seq_filename, TreeType &a
         a_tree.insert(map);
       }
     }
-
     database.close();
-//Part 2-------------
+//Part 2-----------------------------------------------------------------------
     cout << "2: " << a_tree.totalNode() << endl;
-//Part 3---------------
+//Part 3-----------------------------------------------------------------------
     cout << "3a: " << a_tree.averageDepth() << endl;
     cout << "3b: " << a_tree.averageDepth()/log2(a_tree.totalNode()) << endl;
     
-//Part 4--------------
-    ifstream sequencetxt{"sequences.txt"};
+//Part 4-----------------------------------------------------------------------
+    ifstream query_stream{"sequences.txt"};
     int successful_queries = 0;
     int total_queries = 0;
-    int sum_total_recursive_calls = 0;
-    while(sequencetxt >> line){ //Line was previously defined when I last opened the database
+    int sum_recursive_queries = 0;
+    while(query_stream >> line){ 
       total_queries++;
-      sum_total_recursive_calls += a_tree.totalRecursiveCalls(line);
-      
+      sum_recursive_queries += a_tree.totalRecursiveCalls(line);
       if (a_tree.contains(line)){
         successful_queries++;
       }
     }
-    sequencetxt.close();
+    query_stream.close();      
 
     cout << "4a: " << successful_queries << endl;
-    cout << "4b: " << (double)sum_total_recursive_calls/total_queries << endl;
+    cout << "4b: " << (double)sum_recursive_queries/total_queries << endl;
 
-//Part 5----------------
-    ifstream removesequence{"sequences.txt"};
-    int successful_removes = 0;
+//Part 5-----------------------------------------------------------------------
+    ifstream remove_stream{"sequences.txt"};
+    int original_total = a_tree.totalNode();
     int total_remove_calls = 0;
     int sum_recursive_removes = 0;
 
-    while(removesequence >> line){
+    while(remove_stream  >> line){
       total_remove_calls++;
       sum_recursive_removes += a_tree.totalRecursiveCalls(line);
       a_tree.remove(line);
-
-      if(a_tree.contains(line) != true){
-        successful_removes++;
-      }
-      removesequence >> line;
+      remove_stream >> line;  //This is how we skip every other sequence.
     }
-    removesequence.close();
+    remove_stream.close();
 
+    int final_total = a_tree.totalNode();
+    int successful_removes = original_total - final_total;
+    cout << sum_recursive_removes << endl;
     cout << "5a: " << successful_removes << endl;
-    cout << "5b: " << sum_recursive_removes / (double)total_remove_calls << endl;
-//Part 6--------------------------
+    cout << "5b: " << (double)sum_recursive_removes /total_remove_calls << endl;
+//Part 6-----------------------------------------------------------------------
     cout << "6a: " << a_tree.totalNode() << endl;
     cout << "6b " << a_tree.averageDepth() << endl;
     cout << "6c " << a_tree.averageDepth()/log2(a_tree.totalNode()) << endl;
+
 
 }
 
@@ -127,3 +126,4 @@ int main(int argc, char **argv) {
   }
   return 0;
 }
+

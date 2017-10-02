@@ -158,10 +158,6 @@ class AvlTree
         insert( std::move( x ), root );
     }
 
-    int totalNode(){
-        return totalNode(root);
-    }
-     
     /**
      * Remove x from the tree. Nothing is done if x is not found.
      */
@@ -170,13 +166,21 @@ class AvlTree
         remove( x, root );
     }
 
-    double averageDepth(){
-        return sumNodeDepth(root, 0) / totalNode(root);
+    //Returns the total nodes in a tree.
+    int totalNode(){
+        return totalNode(root);
     }
+     
+    double averageDepth(){
+        return sumNodeDepth(root, 0) /(double)totalNode(root);
+    }
+
+    //Returns the total amount of method calls to find n in a binary tree.
     int totalRecursiveCalls(const string& n){
         Comparable tmp{n};
-        return totalRecursiveCalls(root, tmp);
+        return 1 + totalRecursiveCalls(root, tmp);
     }
+
   private:
     struct AvlNode
     {

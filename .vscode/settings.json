@@ -7,6 +7,15 @@
         "cstddef": "cpp",
         "cmath": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__locale": "cpp",
+        "stdio.h": "c",
+        "__tuple": "c",
+        "__split_buffer": "c",
+        "bitset": "c",
+        "initializer_list": "c",
+        "iterator": "c",
+        "memory": "c",
+        "utility": "c"
     }
 }

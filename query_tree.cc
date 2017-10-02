@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
   cout << "Input filename is " << db_filename << endl;
   cout << "Type of tree is " << param_tree << endl;
 
-  //"Please enter n recognition sequences."
+  //"Please enter N recognition sequences."
   const int TOTAL_INPUTS = 3;
   string input_seq[TOTAL_INPUTS];
   for(int i=0; i<TOTAL_INPUTS; i++){
